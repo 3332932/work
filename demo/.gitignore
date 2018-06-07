@@ -1,0 +1,7 @@
+/*
+!.gitignore
+!src
+!build.gradle
+!readme.md
+!demo-*
+!publish.gradle

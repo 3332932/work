@@ -1,0 +1,44 @@
+group 'com.cn'
+version '0.1-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    maven { url "http://mvnrepository.com/" }
+    mavenCentral()
+}
+
+ext {
+
+    // 这些版本都是经过验证的,挑选了与spring兼容于bug 最少的
+    springVersion="4.3.0.RELEASE"
+    jedisVersion="2.5.2"
+    springDataRedisVersion="1.4.4.RELEASE"
+    jacksonDatabindVersion="2.4.6" //spring mvc 相关
+    jacksonVersion="2.4.6"
+}
+
+dependencies {
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.41'
+    compile('com.cn:demo-facade:0.1')
+    compile ("com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion")
+    compile ("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
+    compile ("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+    compile group: 'com.101tec', name: 'zkclient', version: '0.9'
+    compile ('com.alibaba:dubbo:2.5.3') {
+        exclude(module: 'log4j')
+        exclude(module: 'spring')
+        exclude(module: 'netty')
+    }
+    compile('org.springframework:spring-context:4.3.0.RELEASE')
+    compile "org.springframework:spring-web:4.3.0.RELEASE"
+    compile "org.springframework:spring-webmvc:4.3.0.RELEASE"
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+    compile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.springframework', name: 'spring-test', version: '4.2.6.RELEASE'
+
+}
