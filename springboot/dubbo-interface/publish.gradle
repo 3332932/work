@@ -12,7 +12,7 @@ publishing {
 
             //指定要发布的包的名称,防止报错
             groupId 'com.cn'
-            artifactId 'demo-facade'
+            artifactId 'dubbo-interface'
             version '0.1'
             //若是war包，就写components.web,若是jar包，就写components.java
             from components.java
