@@ -3,5 +3,5 @@
 !src
 !build.gradle
 !readme.md
-!demo-*
+!dubbo-*
 !publish.gradle

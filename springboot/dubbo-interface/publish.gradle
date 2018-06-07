@@ -1,0 +1,40 @@
+apply plugin: 'maven-publish'
+
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+
+            //指定要发布的包的名称,防止报错
+            groupId 'com.cn'
+            artifactId 'demo-facade'
+            version '0.1'
+            //若是war包，就写components.web,若是jar包，就写components.java
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+
+    }
+
+    repositories{
+        mavenLocal()
+        maven{
+            url "http://nexus.oa.com/nexus/content/repositories/thirdparty/"
+            credentials {
+                username 'admin'
+                password 'admin123'
+            }
+            authentication {
+                digest(DigestAuthentication)
+            }
+        }
+    }
+}
