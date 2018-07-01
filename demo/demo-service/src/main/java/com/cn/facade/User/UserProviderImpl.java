@@ -26,17 +26,7 @@ public class UserProviderImpl implements UserProvider {
 		
 		return userServiceImpl.getUserByUserName(userName);
 	}
-	
-	@Override
-	public Page getUserPage(Map map, User user) {
-		int pageSize=(Integer)map.get("pageSize");
-		int currPage=(Integer)map.get("currPage");
-		Page result = userServiceImpl.getUserPage(currPage,pageSize,user);
-		System.out.println(result.getPageSize());
-		System.out.println(result.getTotal());
-		System.out.println(JSONArray.toJSONString(result.getResult()));
-		return result;
-	}
+
 	@Override
 	public Map getUserPage(int currPage,int pageSize, User user) {
 		Page page = userServiceImpl.getUserPage(currPage,pageSize,user);

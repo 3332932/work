@@ -40,10 +40,7 @@ public class UserConsumerImpl implements UserConsumer {
 		Map map = new HashMap<>();
 		map.put("currPage",currPage);
 		map.put("pageSize",pageSize);
-		Page page = userProvider.getUserPage(map,user);
 		Map resMap= new HashMap();
-		resMap.put("totalCount",page.getTotal());
-		resMap.put("item",page.getResult());
 		resMap.put("state",0);
 		resMap.put("msg","success");
 		

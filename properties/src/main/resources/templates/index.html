@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/static/properties.css}"/>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.css}"/>
+</head>
+<body>
+<div class="bootstrap-frm">
+    <form th:action="@{|/pv/${pv}/ev/${ev}/add|}" th:method="post">
+
+        <ul>
+            <li>
+                <textarea name="properties" th:utext="${str}"></textarea>
+            </li>
+            <li style="    height: 40px;background: #f2f4f9;border-radius: 7px;">
+                <input th:type="submit" th:value="提交" class="btn btn-success">
+            </li>
+        </ul>
+
+    </form>
+</div>
+
+</body>
+</html>
