@@ -1,6 +1,6 @@
 rootProject.name = 'work'
 include 'general'
-include 'private'
+include 'java-base'
 include 'demo/demo-facade'
 include 'demo/demo-api'
 include 'demo/demo-service'
