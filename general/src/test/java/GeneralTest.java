@@ -22,7 +22,7 @@ public class GeneralTest {
 	
 	@Test
 	public void diyTable() throws Exception {
-		generalMain.general("user");
+		generalMain.general("bm_provincial_city");
 	}
 	
 	

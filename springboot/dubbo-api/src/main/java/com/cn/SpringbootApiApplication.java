@@ -11,6 +11,7 @@ public class SpringbootApiApplication extends SpringBootServletInitializer{
 	public static void main(String[] args) {
 
 		SpringApplication.run(SpringbootApiApplication.class, args);
+		System.out.println("http://localhost:8080/swagger-ui.html");
 	}
 
 	@Override

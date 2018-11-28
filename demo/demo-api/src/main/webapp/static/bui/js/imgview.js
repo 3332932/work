@@ -746,10 +746,10 @@ define('bui/imgview/viewcontent',['bui/common','bui/graphic'],function (r) {
      * @param {Function} callback [description]
      * <pre><code>
      *  viewContent.leftHand(function(){
-     *    //TODO
+     *
      *  })
      *  viewContent.leftHand("<>", function(){
-     *    //TODO
+     *
      *  })
      * </code></pre>
      */
@@ -766,10 +766,10 @@ define('bui/imgview/viewcontent',['bui/common','bui/graphic'],function (r) {
      * @param {Function} callback [description]
      * <pre><code>
      *  viewContent.rightHand(function(){
-     *    //TODO
+     *
      *  })
      *  viewContent.rightHand("<>", function(){
-     *    //TODO
+     *
      *  })
      * </code></pre>
      */
@@ -804,10 +804,10 @@ define('bui/imgview/viewcontent',['bui/common','bui/graphic'],function (r) {
      * @param {Function} callback [description]
      * <pre><code>
      *  viewContent.zoom(function(){
-     *    //TODO
+     *
      *  })
      *  viewContent.zoom("<>", function(){
-     *    //TODO
+     *
      *  })
      * </code></pre>
      */
@@ -825,10 +825,10 @@ define('bui/imgview/viewcontent',['bui/common','bui/graphic'],function (r) {
      * @param {Function} callback [description]
      * <pre><code>
      *  viewContent.micrify(function(){
-     *    //TODO
+     *
      *  })
      *  viewContent.micrify("<>", function(){
-     *    //TODO
+     *
      *  })
      * </code></pre>
      */
@@ -846,10 +846,10 @@ define('bui/imgview/viewcontent',['bui/common','bui/graphic'],function (r) {
      * @param {Function} callback [description]
      * <pre><code>
      *  viewContent.resume(function(){
-     *    //TODO
+     *
      *  })
      *  viewContent.resume("<>", function(){
-     *    //TODO
+     *
      *  })
      * </code></pre>
      */
@@ -866,10 +866,10 @@ define('bui/imgview/viewcontent',['bui/common','bui/graphic'],function (r) {
      * @param {Function} callback [description]
      * <pre><code>
      *  viewContent.fit(function(){
-     *    //TODO
+     *
      *  })
      *  viewContent.fit("<>", function(){
-     *    //TODO
+     *
      *  })
      * </code></pre>
      */

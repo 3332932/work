@@ -90,7 +90,9 @@ public class GeneralMain {
 		CachedRowSet resultSet3 = resultSet.createCopy();
 		CachedRowSet resultSet4 = resultSet.createCopy();
 		CachedRowSet resultSet5 = resultSet.createCopy();
-		generateUtil.getService();
+		if (properties.isMakeUtils()){
+			generateUtil.getService();
+		}
 		if (properties.isXml()){
 			generateMybatisXml.getService(tableName,resultSet,primaryKey,primaryKeyColumnType);
 		}if (properties.isMapper()){

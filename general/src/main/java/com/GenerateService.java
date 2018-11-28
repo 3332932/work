@@ -24,6 +24,9 @@ public class GenerateService {
     		sb.append("package " + properties.getServicePackageName() + ";\n\n");
     		sb.append("import " + properties.getModelPackageName() + "." + entity + ";\n");
     		sb.append("import java.util.List;\n");
+		if ("mybatis-plus".equals(properties.getPageType())){
+			sb.append("import com.baomidou.mybatisplus.plugins.Page;\n");
+		}
     		sb.append("public interface " + className + " {\n\n");
 	    
 	
@@ -58,7 +61,12 @@ public class GenerateService {
 		    sb.append("\t/**\n");
 		    sb.append("\t * ").append("分页，这里建议使用插件（com.github.pagehelper.PageHelper）").append("\n");
 		    sb.append("\t **/\n");
-		    sb.append("\tList<" + entity + "> find"+entity+"List(" + entity + " "+entityObj+") throws Exception;\n\n");
+			if ("mybatis-plus".equals(properties.getPageType())){
+				sb.append("\tList<" + entity + "> find"+entity+"List(Page page," + entity + " "+entityObj+") throws Exception;\n\n");
+
+			}else {
+				sb.append("\tList<" + entity + "> find"+entity+"List(" + entity + " "+entityObj+") throws Exception;\n\n");
+			}
 	    }
         sb.append("}\n");
         Helper.outputToFile(Helper.getFilePath(properties.getPath()+properties.getServicePackagePath(),properties.getServicePackageName()),className+".java", sb.toString());

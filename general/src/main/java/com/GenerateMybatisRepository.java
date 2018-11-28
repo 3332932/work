@@ -22,6 +22,9 @@ public class GenerateMybatisRepository {
 		sb.append("package " + properties.getMapperPackageName() + ";\n\n");
 		sb.append("import " + properties.getModelPackageName() + "." + dto + ";\n");
 		sb.append("import java.util.List;\n");
+		if ("mybatis-plus".equals(properties.getPageType())){
+			sb.append("import com.baomidou.mybatisplus.plugins.Page;\n");
+		}
 		sb.append("\npublic interface " + className + " {\n\n");
 		
 		if (properties.isSelectByPrimaryKey()) {
@@ -40,7 +43,12 @@ public class GenerateMybatisRepository {
 			
 		}
 		if (properties.isPage()){
-			sb.append("\tList<" + entity + "> find"+entity+"List(" + entity + " "+entityObj+");\n\n");
+			if ("mybatis-plus".equals(properties.getPageType())){
+				sb.append("\tList<" + entity + "> find"+entity+"List(Page page," + entity + " "+entityObj+");\n\n");
+
+			}else {
+				sb.append("\tList<" + entity + "> find"+entity+"List(" + entity + " "+entityObj+");\n\n");
+			}
 		}
 		
 		

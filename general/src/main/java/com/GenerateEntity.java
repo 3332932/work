@@ -28,7 +28,10 @@ public class GenerateEntity {
             String ACCESS_DOMAIN = "private";
             while (resultSet3.next()) {
                 String className = Helper.getFormatString(tableName, true);
-                StringBuffer header = new StringBuffer("package " + properties.getModelPackageName() + ";\n\n");
+                StringBuffer header = new StringBuffer("package " + properties.getModelPackageName() + ";\n");
+                if (properties.isSwaggerModel()){
+                    header.append("import io.swagger.annotations.ApiModelProperty;\n\n");
+                }
                 StringBuffer footer = new StringBuffer();
                 StringBuffer contentBuffer = new StringBuffer();
                 
@@ -41,19 +44,27 @@ public class GenerateEntity {
 
                     String columnType = resultSet1.getString("TYPE_NAME");
                     String COLUMN_TYPE = Helper.getColumnType(columnType);
+                    String columnName = resultSet1.getString("COLUMN_NAME");
+                    columnName = Helper.getFormatString(columnName, false);
                     if ("Date".equals(COLUMN_TYPE) && importDateFlag) {
                         importDateFlag = false;
                         header.append("import java.util.Date;\n");
                     }
                     String remark = resultSet1.getString("REMARKS");
+                    if (!properties.isSwaggerModel()) {
+                        contentBuffer.append("\t/**\n");
+                        contentBuffer.append("\t * ").append(remark).append("\n");
+                        contentBuffer.append("\t **/\n");
+                    }else {
+                        contentBuffer.append("\t@ApiModelProperty(value=\"");
+                        contentBuffer.append(remark).append("\",");
+                        contentBuffer.append("name=\"").append(columnName).append("\",");
+                        contentBuffer.append("example=\"\")\n");
 
-                    contentBuffer.append("\t/**\n");
-                    contentBuffer.append("\t * ").append(remark).append("\n");
-                    contentBuffer.append("\t **/\n");
+                    }
                     contentBuffer.append("\t" + ACCESS_DOMAIN + " ");
                     contentBuffer.append(COLUMN_TYPE + " ");
-                    String columnName = resultSet1.getString("COLUMN_NAME");
-                    columnName = Helper.getFormatString(columnName, false);
+
                     footer.append(getSetGeneral(columnName, COLUMN_TYPE));
                     contentBuffer.append(columnName + ";\n");
                 }
