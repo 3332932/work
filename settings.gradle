@@ -1,14 +1,5 @@
 rootProject.name = 'work'
-include 'general'
-include 'java-base'
-include 'demo/demo-facade'
-include 'demo/demo-api'
-include 'demo/demo-service'
-include 'springboot1'
-include 'springboot/simple'
-include 'springboot/dubbo-api'
-include 'springboot/dubbo-interface'
-include 'springboot/dubbo-service'
-include 'service'
-include 'properties'
+include 'springboot/service'
+include 'springboot/jwt'
+
 
