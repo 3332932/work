@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.jwt.mapper.RoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.cn.jwt.entity.Role">
+        <id column="role_id" property="roleId" jdbcType="BIGINT"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="VARCHAR"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		role_id,role_name,creator,create_time,modifier,modify_time
+	</sql>
+
+    <sql id="Base_Column_List_a">
+		a.role_id,a.role_name,a.creator,a.create_time,a.modifier,a.modify_time
+	</sql>
+    <select id="getRoleByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List_a"/>
+        from role a,user_role b where b.user_id=#{userId}
+        and
+        a.role_id=b.role_id
+    </select>
+
+</mapper>

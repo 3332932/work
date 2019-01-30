@@ -3,5 +3,6 @@
 !src
 !build.gradle
 !readme.md
-!dubbo-*
+!jwt
+!service
 !publish.gradle

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.jwt.mapper.PermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.cn.jwt.entity.Permission">
+        <id column="permission_id" property="permissionId" jdbcType="BIGINT"/>
+        <result column="permission_value" property="permissionValue" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="VARCHAR"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		permission_id,permission_name,permission_value,creator,create_time,modifier,modify_time
+	</sql>
+    <sql id="Base_Column_List_a">
+		a.permission_id,a.permission_name,a.permission_value,a.creator,a.create_time,a.modifier,a.modify_time
+	</sql>
+    <select id="getPermissionByRoleId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List_a"/>
+        from permission a,role_permission b where b.role_id=#{roleId}
+        and
+        a.permission_id=b.permission_id
+    </select>
+    <select id="getPermissionByRoleIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List_a"/>
+        from permission a,role_permission b where
+        <if test="list.size>0">
+            b.role_id in
+            <foreach collection="list" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+            and
+        </if>
+        a.permission_id=b.permission_id
+    </select>
+
+</mapper>

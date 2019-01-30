@@ -1,0 +1,23 @@
+buildscript {
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+}
+
+
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply from: rootProject.file('springboot/repositories.gradle')
+
+apply from: rootProject.file('springboot/jwt/publish.gradle')
+dependencies {
+    //jwt
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    compile group: 'com.auth0', name: 'java-jwt', version: '3.4.0'
+
+}
