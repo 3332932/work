@@ -2,14 +2,8 @@ group 'com.cn'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply from: rootProject.file('springboot/repositories.gradle')
 
-sourceCompatibility = 1.8
-
-repositories {
-    mavenLocal()
-    maven { url "http://mvnrepository.com/" }
-    mavenCentral()
-}
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
@@ -17,4 +11,5 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.55'
+    compile group: 'com.cn', name: 'jwt', version: '0.1'
 }
