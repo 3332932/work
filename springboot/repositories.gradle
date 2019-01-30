@@ -1,0 +1,8 @@
+sourceCompatibility = 1.8
+repositories {
+    mavenLocal()
+    maven { url "http://mvnrepository.com/" }
+    mavenCentral()
+}
+
+

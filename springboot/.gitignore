@@ -6,3 +6,4 @@
 !jwt
 !service
 !publish.gradle
+!repositories.gradle
