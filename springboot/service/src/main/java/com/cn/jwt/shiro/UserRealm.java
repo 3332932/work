@@ -60,6 +60,14 @@ public class UserRealm extends AuthorizingRealm {
         List<Permission> permissions = permissionServiceImpl.getPermissionByRoleIds(roleLong);
         Set<String> stringPermissions = new HashSet();
         permissions.forEach(e->stringPermissions.add(e.getPermissionValue()));
+        if ("admin".equals(user.getUserName())){
+            stringPermissions.add("user:list");
+            stringPermissions.add("role:list");
+            stringPermissions.add("permission:list");
+            stringPermissions.add("role:grant");
+            stringPermissions.add("permission:grant");
+
+        }
         authorizationInfo.setStringPermissions(stringPermissions);
 
         return authorizationInfo;

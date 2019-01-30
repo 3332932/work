@@ -65,7 +65,7 @@ public class PermissionController {
 
 
     @PostMapping("/grant")
-    //@RequiresPermissions("permission:grant")
+    @RequiresPermissions("permission:grant")
     public Object add(@RequestParam(value = "roleId", defaultValue = "0") Long roleId, @RequestParam(value = "permissionIdStr", defaultValue = "") String permissionIdStr) {
         if (roleId == null || roleId == 0) {
             return WorkUtils.getResultMap("-1", "userId 为空");
