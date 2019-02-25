@@ -33,7 +33,7 @@ public class User implements Serializable{
 	 */
 	@JwtConfig
 	@TableField("user_name")
-	private String userName;
+	private String username;
 	/**
 	 * 用户密码
 	 */
@@ -45,6 +45,18 @@ public class User implements Serializable{
 	@JwtConfig
 	@TableField("nick_name")
 	private String nickName;
+	/**
+	 * 头像
+	 */
+	@JwtConfig
+	@TableField("avatar")
+	private String avatar;
+	/**
+	 * vip级别
+	 */
+	@JwtConfig
+	@TableField("level")
+	private Integer level;
 	/**
 	 * 创建时间
 	 */

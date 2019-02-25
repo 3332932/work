@@ -60,7 +60,7 @@ public class UserRealm extends AuthorizingRealm {
         List<Permission> permissions = permissionServiceImpl.getPermissionByRoleIds(roleLong);
         Set<String> stringPermissions = new HashSet();
         permissions.forEach(e->stringPermissions.add(e.getPermissionValue()));
-        if ("admin".equals(user.getUserName())){
+        if ("admin".equals(user.getUsername())){
             stringPermissions.add("user:list");
             stringPermissions.add("role:list");
             stringPermissions.add("permission:list");
@@ -95,7 +95,7 @@ public class UserRealm extends AuthorizingRealm {
         }
         //密码可以通过SimpleHash加密，然后保存进数据库。
         //此处是获取数据库内的账号、密码、盐值，保存到登陆信息info中
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(),
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUsername(),
                 user.getPassword(),
                 ByteSource.Util.bytes(user.getSalt()),
                 getName());

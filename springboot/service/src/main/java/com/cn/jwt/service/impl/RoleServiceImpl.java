@@ -17,6 +17,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Autowired
     private RoleMapper roleMapper;
 
+    @Override
     public List<Role> getRoleByUserId( Long userId){
         return roleMapper.getRoleByUserId(userId);
     }

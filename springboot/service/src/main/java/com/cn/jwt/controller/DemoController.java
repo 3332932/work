@@ -50,13 +50,12 @@ public class DemoController {
 
             user.setCreateTime(new Date());
             user.setUserId(1L);
-            user.setUserName("user");
+
 
         } catch (Exception e) {
             logger.error("getUserByUserName",e);
             user.setCreateTime(new Date());
             user.setUserId(1L);
-            user.setUserName("user");
             user.setNickName(e.getMessage());
 
         }finally {

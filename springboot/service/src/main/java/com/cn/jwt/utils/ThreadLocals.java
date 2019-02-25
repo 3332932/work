@@ -34,7 +34,7 @@ public class ThreadLocals {
         if (currentUserThl.get() == null) {
             User user = new User();
             user.setUserId(0L);
-            user.setUserName("visitor");
+            user.setUsername("visitor");
             user.setNickName("visitor");
             currentUserThl.set(user);
         }

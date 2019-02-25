@@ -108,9 +108,9 @@ public class JwtToken {
         } else if (field.getType().getName().equals("java.lang.String")) {
             value = claim.asString();
         } else if (field.getType().getName().equals("java.lang.Double")) {
-            value = claim.asString();
+            value = Double.valueOf(claim.asString());
         } else if (field.getType().getName().equals("java.lang.Integer")) {
-            value = claim.asString();
+            value = Integer.valueOf(claim.asString());
         } else if (field.getType().getName().equals("java.util.Date")) {
             value = claim.asDate();
         } else if (field.getType().getName().equals("java.util.Map")) {

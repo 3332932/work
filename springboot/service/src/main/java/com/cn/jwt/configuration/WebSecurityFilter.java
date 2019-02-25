@@ -48,12 +48,14 @@ public class WebSecurityFilter implements WebMvcConfigurer {
     private class SecurityInterceptor extends HandlerInterceptorAdapter {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-            String token = request.getHeader("token");
+            String token = request.getHeader("X-Token");
+            if (StringUtils.isEmpty(token)){
+                token = request.getHeader("token");
+            }
             try {
                 if (StringUtils.isNoneBlank(token)) {
                     User user = new User();
                     jwtToken.getInfoByToken(token, user);
-
                     ThreadLocals.setCurrentUser(user);
                     return true;
                 }else {

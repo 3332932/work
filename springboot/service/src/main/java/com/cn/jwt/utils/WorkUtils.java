@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -31,7 +32,7 @@ public class WorkUtils {
         String size = request.getParameter("size");
         if (StringUtils.isAnyEmpty(current, size)) {
             current = "1";
-            size = "10";
+            size = "100";
         }
         PageHelper.startPage(Integer.valueOf(current), Integer.valueOf(size));
     }
@@ -145,4 +146,32 @@ public class WorkUtils {
         }
         return ip;
     }
+
+    public static Object setBlankToNull(Object obj){
+        Class clazz = obj.getClass();
+        Field[] declaredFields = clazz.getDeclaredFields();
+        for (Field field: declaredFields){
+            try {
+                field.setAccessible(true);
+                Object o = field.get(obj);
+                if (o instanceof String){
+                    if (o==null){
+
+                    }else {
+                        String s = String.valueOf(o);
+                        if (s.equals("")){
+
+                            field.set(obj,null);
+                        }
+                    }
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return obj;
+
+    }
+
+
 }

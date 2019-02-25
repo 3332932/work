@@ -1,6 +1,5 @@
 package com.cn.jwt.controller;
 
-import com.cn.jwt.JwtConfig;
 import com.cn.jwt.JwtToken;
 import com.cn.jwt.entity.User;
 import com.cn.jwt.utils.ThreadLocals;
@@ -28,12 +27,13 @@ public class LoginController {
     public Object login(@RequestBody User user){
         try {
             Subject subject = SecurityUtils.getSubject();
-            UsernamePasswordToken shiroToken = new UsernamePasswordToken(user.getUserName(), user.getPassword());
+            UsernamePasswordToken shiroToken = new UsernamePasswordToken(user.getUsername(), user.getPassword());
             // 执行认证登陆
             subject.login(shiroToken);
             User currentUser = ThreadLocals.getCurrentUser();
             String token = jwtToken.createToken(currentUser);
             currentUser.setPassword(null);
+            subject.isPermitted("*");
             Map<String, Object> resultDataMap = WorkUtils.getResultDataMap(currentUser);
             resultDataMap.put("token",token);
             return resultDataMap;
@@ -44,8 +44,6 @@ public class LoginController {
             return resultDataMap;
         }
     }
-
-
     public static void main(String[] args) {
         SimpleHash simpleHash = new SimpleHash("md5","admin".getBytes(),"c3284d0f94606de1fd2af172aba15bf3",2);
         System.out.println(simpleHash);
