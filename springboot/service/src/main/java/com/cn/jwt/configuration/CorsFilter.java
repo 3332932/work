@@ -9,6 +9,7 @@ import java.io.IOException;
 
 /**
  * @author yshh44
+ * cors 跨域处理
  */
 @Order(1000)
 @WebFilter(filterName = "CorsFilter", urlPatterns = "/*")

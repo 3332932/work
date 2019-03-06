@@ -1,4 +1,5 @@
 package com.cn.jwt.entity;
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.cn.jwt.JwtConfig;
@@ -10,6 +11,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -71,5 +73,8 @@ public class User implements Serializable{
 	private Date updateTime;
 	@TableField("salt")
 	private String salt;
+	@JwtConfig
+	@TableField(exist = false)
+	private Set<String> role;
 
 }

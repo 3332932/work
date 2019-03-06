@@ -31,10 +31,10 @@ public class LoginController {
             // 执行认证登陆
             subject.login(shiroToken);
             User currentUser = ThreadLocals.getCurrentUser();
-            String token = jwtToken.createToken(currentUser);
             currentUser.setPassword(null);
             subject.isPermitted("*");
             Map<String, Object> resultDataMap = WorkUtils.getResultDataMap(currentUser);
+            String token = jwtToken.createToken(currentUser);
             resultDataMap.put("token",token);
             return resultDataMap;
         } catch (AuthenticationException e) {

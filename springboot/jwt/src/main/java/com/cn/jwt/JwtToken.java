@@ -83,8 +83,8 @@ public class JwtToken {
 
     public void getInfoByToken(String token, Object obj) {
         Map<String, Claim> stringClaimMap = verifyToken(token);
-        Class  userClass = obj.getClass();
-        Field[] declaredFields = userClass.getDeclaredFields();
+        Class  clazz = obj.getClass();
+        Field[] declaredFields = clazz.getDeclaredFields();
         for (Field field : declaredFields) {
             boolean annotationPresent = field.isAnnotationPresent(JwtConfig.class);
             if (annotationPresent) {
@@ -92,8 +92,7 @@ public class JwtToken {
                 Claim claim = stringClaimMap.get(name);
                 field.setAccessible(true);
                 try {
-                    Object value = null;
-                    value = getValue(field, claim, value);
+                    Object value = getValue(field, claim,clazz);
                     field.set(obj, value);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -102,7 +101,8 @@ public class JwtToken {
         }
     }
 
-    private Object getValue(Field field, Claim claim, Object value) {
+    private Object getValue(Field field, Claim claim,Class clazz) {
+        Object value=null;
         if (field.getType().getName().equals("java.lang.Long")) {
             value = Long.valueOf(claim.asString());
         } else if (field.getType().getName().equals("java.lang.String")) {

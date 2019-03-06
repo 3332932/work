@@ -49,13 +49,14 @@ public class UserRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         User user = ThreadLocals.getCurrentUser();
         List<Role> roleList = roleServiceImpl.getRoleByUserId(user.getUserId());
+
         Set<String> roleStr = new HashSet();
         List<Long> roleLong = new ArrayList<>();
         roleList.forEach(e -> {
             roleStr.add(e.getRoleName());
             roleLong.add(e.getRoleId());
         });
-
+        user.setRole(roleStr);
         authorizationInfo.setRoles(roleStr);
         List<Permission> permissions = permissionServiceImpl.getPermissionByRoleIds(roleLong);
         Set<String> stringPermissions = new HashSet();
