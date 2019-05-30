@@ -22,7 +22,7 @@ public class GeneralTest {
 
 	@Test
 	public void diyTable() throws Exception {
-		generalMain.general("sys_params_dtl");
+		generalMain.general("bms_express_register");
 	}
 
 
