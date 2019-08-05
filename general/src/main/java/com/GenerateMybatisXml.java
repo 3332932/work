@@ -40,9 +40,9 @@ public class GenerateMybatisXml {
 			
 			
 			StringBuffer resultMap = new StringBuffer(" \t<resultMap id=\"BaseResultMap\" type=\""+properties.getModelPackageName()+"."+className+"\" >\n");
-			StringBuffer sqlMap = new StringBuffer("\t<sql id=\"select_option\">\n");
+			StringBuffer sqlMap = new StringBuffer("\t<sql id=\"select_condition\">\n");
 			StringBuffer baseMap = new StringBuffer("\t<sql id=\"Base_Column_List\">\n\t\t");
-			StringBuffer updateMap=new StringBuffer("\t<sql id=\"update_option\">\n");
+			StringBuffer updateMap=new StringBuffer("\t<sql id=\"update_condition\">\n");
 			StringBuffer insertColumnMap=new StringBuffer();
 			StringBuffer insertValueMap=new StringBuffer();
 			
@@ -111,7 +111,7 @@ public class GenerateMybatisXml {
 			if (properties.isUpdateByPrimaryKey()) {
 				update=new StringBuffer("\t<update id=\"update"+className+"By").append(PrimaryKeyMethodName).append("\" ")
 						.append(">\n");
-				update.append("\t\tupdate "+tableName+" \n").append("\t\t<set>\n").append("\t\t<include refid=\"update_option\"/>\n")
+				update.append("\t\tupdate "+tableName+" \n").append("\t\t<set>\n").append("\t\t<include refid=\"update_condition\"/>\n")
 						
 						.append("\t\t</set>\n").append("\n\t\t where ").append(primaryKey)
 						.append("= #{").append(entityPrimaryKey).append("}\n").append("\t</update>\n\n");
@@ -135,7 +135,7 @@ public class GenerateMybatisXml {
 						.append("\t\tselect ").append("<include refid=\"Base_Column_List\" />").append(" from ").append(tableName)
 						.append("\n\t\twhere \n")
 						.append("1=1")
-						.append("\t\t<include refid=\"select_option\" />\n").append("\t</select>\n\n");
+						.append("\t\t<include refid=\"select_condition\" />\n").append("\t</select>\n\n");
 			}
 			
 			

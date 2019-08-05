@@ -67,6 +67,7 @@ public class Properties {
 	@Value("#{setting.controllerRestPackagePath}")
 	private String controllerRestPackagePath;
 
+
 	
 	
 	
@@ -104,7 +105,39 @@ public class Properties {
 	private boolean pageAdd;
 	@Value("#{setting.pageUpdate}")
 	private boolean pageUpdate;
+	@Value("#{setting.makeUtils}")
+	private boolean makeUtils;
+	@Value("#{setting.pageType}")
+	private String pageType;
 
+
+	//swagger
+	@Value("#{setting.swaggerModel}")
+	private boolean swaggerModel;
+
+	public void setMakeUtils(boolean makeUtils) {
+		this.makeUtils = makeUtils;
+	}
+
+	public String getPageType() {
+		return pageType;
+	}
+
+	public void setPageType(String pageType) {
+		this.pageType = pageType;
+	}
+
+	public boolean isSwaggerModel() {
+		return swaggerModel;
+	}
+
+	public void setSwaggerModel(boolean swaggerModel) {
+		this.swaggerModel = swaggerModel;
+	}
+
+	public boolean isMakeUtils() {
+		return makeUtils;
+	}
 
 	public String getPackagePath() {
 		return packagePath;

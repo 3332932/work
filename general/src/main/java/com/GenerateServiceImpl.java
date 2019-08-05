@@ -35,6 +35,9 @@ public class GenerateServiceImpl {
     		sb.append("import org.springframework.beans.factory.annotation.Autowired;\n");
     		sb.append("import org.springframework.stereotype.Service;\n");
     		sb.append("import java.util.List;\n");
+		if ("mybatis-plus".equals(properties.getPageType())){
+			sb.append("import com.baomidou.mybatisplus.plugins.Page;\n");
+		}
     		sb.append("@Service\n");
     		sb.append("public class " + className + " implements "+ service +" {\n\n");
     		
@@ -115,10 +118,24 @@ public class GenerateServiceImpl {
 		    sb.append("\t * ").append("分页，这里建议使用插件（com.github.pagehelper.PageHelper）").append("\n");
 		    sb.append("\t **/\n");
 		    sb.append("\t@Override\n");
-		    sb.append("\tpublic List<" + entity + "> find"+entity+"List(" + entity + " "+entityObj+") throws Exception {\n");
-		    sb.append("\t\ttry {\n");
-		    sb.append("\t\t\tlog.debug(\"find"+entity+"List  {}\",").append(entityObj).append(");\n");
-		    sb.append("\t\t\treturn "+instance+".find"+entity+"List("+entityObj+");\n");
+			if ("mybatis-plus".equals(properties.getPageType())){
+				sb.append("\tpublic List<" + entity + "> find"+entity+"List(Page page," + entity + " "+entityObj+") throws Exception {\n");
+				sb.append("\t\ttry {\n");
+				sb.append("\t\t\tif (page!=null){\n");
+				sb.append("\t\t\t\tif(page.getCurrent()<1||page.getSize()<1){\n");
+				sb.append("\t\t\t\t\tpage.setCurrent(1);\n");
+				sb.append("\t\t\t\t\tpage.setSize(10);\n");
+				sb.append("\t\t\t\t}\n");
+				sb.append("\t\t\t}\n");
+				sb.append("\t\t\tlog.debug(\"find"+entity+"List  {},{}\",page,").append(entityObj).append(");\n");
+				sb.append("\t\t\treturn "+instance+".find"+entity+"List(page,"+entityObj+");\n");
+			}else{
+				sb.append("\tpublic List<" + entity + "> find"+entity+"List(" + entity + " "+entityObj+") throws Exception {\n");
+				sb.append("\t\ttry {\n");
+				sb.append("\t\t\tlog.debug(\"find"+entity+"List  {}\",").append(entityObj).append(");\n");
+				sb.append("\t\t\treturn "+instance+".find"+entity+"List("+entityObj+");\n");
+
+			}
 		    sb.append("\t\t} catch(Exception e) {\n");
 		    sb.append("\t\t\tlog.error(\"find"+entity+"List  {}\",").append(entityObj).append(",e").append(");\n");
 		    sb.append("\t\t\tthrow e;\n");

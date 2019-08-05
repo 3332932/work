@@ -129,8 +129,9 @@ public class Helper {
 			COLUMN_TYPE = "String";
 		} else if("TIMESTAMP".equals(column) || "DATE".equals(column) || "DATETIME".equals(column)) {
 			// TODO: 2017/9/20 这里时间用String格式
-			//COLUMN_TYPE = "Date";
-			COLUMN_TYPE = "String";
+			//COLUMN_TYPE = "String";
+			COLUMN_TYPE = "Date";
+
 		} else if("TINYINT".equals(column)) {
 			COLUMN_TYPE = "Short";
 		} else if("DECIMAL UNSIGNED".equals(column)) {

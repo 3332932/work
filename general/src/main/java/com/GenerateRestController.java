@@ -26,25 +26,28 @@ public class GenerateRestController {
         sb.append("package " + properties.getControllerRestPackageName() + ";\n\n");
         sb.append("import " + properties.getModelPackageName() + "." + entity + ";\n");
         sb.append("import " + properties.getServicePackageName() + "." + service + ";\n");
-        sb.append("import " + properties.getPackageName() + ".base.BaseFilter;\n");
         sb.append("import org.slf4j.Logger;\n");
         sb.append("import java.util.HashMap;\n");
         sb.append("import org.slf4j.LoggerFactory;\n");
         sb.append("import org.springframework.beans.factory.annotation.Autowired;\n");
         sb.append("import org.springframework.web.bind.annotation.RestController;\n");
-        sb.append("import org.springframework.web.bind.annotation.RequestMapping;\n");
+        sb.append("import org.springframework.web.bind.annotation.*;\n");
         sb.append("import org.springframework.web.bind.annotation.RequestBody;\n");
-        sb.append("import com.github.pagehelper.Page;\n");
-        sb.append("import com.github.pagehelper.Paginator;\n");
+        sb.append("import java.util.List;\n");
+
+        if ("mybatis-plus".equals(properties.getPageType())){
+            sb.append("import com.baomidou.mybatisplus.plugins.Page;\n");
+        }
+
+
 
 
         sb.append("import java.util.Map;\n");
-        sb.append("import " + properties.getPackageName() + ".util.PageUtil;\n");
         sb.append("import javax.servlet.http.HttpServletRequest;\n");
         sb.append("@RestController\n");
         sb.append("@SuppressWarnings(\"all\")\n");
         sb.append("@RequestMapping(\"/rest/" + entityObj + "/\")\n");
-        sb.append("public class " + className + " extends BaseFilter  {\n\n");
+        sb.append("public class " + className + " {\n\n");
 
         sb.append("\tprivate Logger log = LoggerFactory.getLogger(" + className + ".class);\n");
         String instance = service.substring(0, 1).toLowerCase() + service.substring(1) + "Impl";
@@ -55,7 +58,7 @@ public class GenerateRestController {
             sb.append("\t/**\n");
             sb.append("\t * ").append("新增").append("\n");
             sb.append("\t **/\n");
-            sb.append("\t@RequestMapping(\"add\")\n");
+            sb.append("\t@PutMapping(\"add\")\n");
             sb.append("\tpublic Object " + "add" + entity + "(@RequestBody " + entity + " " + "obj) throws Exception {\n");
             sb.append("\t\t Map<String,Object> map = new HashMap<>();\n");
             sb.append("\t\ttry {\n");
@@ -76,7 +79,7 @@ public class GenerateRestController {
             sb.append("\t/**\n");
             sb.append("\t * ").append("查询").append("\n");
             sb.append("\t **/\n");
-            sb.append("\t@RequestMapping(\"get\")\n");
+            sb.append("\t@GetMapping(\"get\")\n");
             sb.append("\tpublic Object get" + entity + "By" + primaryKeyMethod + "(@RequestBody Map param) {\n");
             sb.append("\t\t Map<String,Object> map = new HashMap<>();\n");
             sb.append("\t\ttry {\n");
@@ -99,7 +102,7 @@ public class GenerateRestController {
             sb.append("\t/**\n");
             sb.append("\t * ").append("更新").append("\n");
             sb.append("\t **/\n");
-            sb.append("\t@RequestMapping(\"update\")\n");
+            sb.append("\t@PutMapping(\"update\")\n");
             sb.append("\tpublic Object " + "update" + entity + "By" + primaryKeyMethod + "(@RequestBody " + entity + " obj) throws Exception {\n");
             sb.append("\t\t Map<String,Object> map = new HashMap<>();\n");
             sb.append("\t\ttry {\n");
@@ -120,20 +123,24 @@ public class GenerateRestController {
             sb.append("\t/**\n");
             sb.append("\t * ").append("分页，这里建议使用插件（com.github.pagehelper.PageHelper）").append("\n");
             sb.append("\t **/\n");
-            sb.append("\t@RequestMapping(\"list\")\n");
+            sb.append("\t@PostMapping(\"list\")\n");
             sb.append("\tpublic Object find" + entity + "List(@RequestBody " + entity + "  obj, HttpServletRequest request) {\n");
             sb.append("\t\t Map<String,Object> map = new HashMap<>();\n");
             sb.append("\t\ttry {\n");
             sb.append("\t\t\tlog.info(\"find" + entity + "List  {}\",").append("obj").append(");\n");
-            sb.append("\t\t\tPageUtil.doPage(request);\n");
-            sb.append("\t\t\tPage<" + entity + "> list = (Page<" + entity + ">)" + instance + ".find" + entity + "List(obj);\n");
-
-
-            sb.append("\t\t\tPaginator paginator=list.getPaginator();\n");
-            sb.append("\t\t\tmap.put(\"state\",0);\n");
-            sb.append("\t\t\tmap.put(\"msg\",\"success\");\n");
-            sb.append("\t\t\tmap.put(\"data\",list);\n");
-            sb.append("\t\t\tmap.put(\"paginator\",paginator);\n");
+            if ("mybatis-plus".equals(properties.getPageType())){
+                sb.append("\t\t\tPage page = new Page();\n");
+                sb.append("\t\t\tList<" + entity + "> list = " + instance + ".find" + entity + "List(page,obj);\n");
+                sb.append("\t\t\tpage.setRecords(list);\n");
+                sb.append("\t\t\tmap.put(\"state\",0);\n");
+                sb.append("\t\t\tmap.put(\"msg\",\"success\");\n");
+                sb.append("\t\t\tmap.put(\"data\",page);\n");
+            }else {
+                sb.append("\t\t\tList<" + entity + "> list = " + instance + ".find" + entity + "List(obj);\n");
+                sb.append("\t\t\tmap.put(\"state\",0);\n");
+                sb.append("\t\t\tmap.put(\"msg\",\"success\");\n");
+                sb.append("\t\t\tmap.put(\"data\",list);\n");
+            }
 
             sb.append("\t\t} catch(Exception e) {\n");
             sb.append("\t\t\tlog.error(\"find" + entity + "List  {}\",").append("obj").append(",e").append(");\n");

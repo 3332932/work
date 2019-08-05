@@ -4,39 +4,48 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.cn.facade.demo.Demo;
 import com.cn.facade.user.UserProvider;
 import com.cn.model.User;
+import com.cn.springboot.model.DUser;
+import com.cn.springboot.model.Pay;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Api("swaggerDemoController相关的api")
 @RestController
 public class DemoController implements UserProvider,Demo {
     @Reference
     private UserProvider userProvider;
     @Reference
     private Demo demo;
-    @RequestMapping("/")
-    public Object dsfe(){
-        User user = getUserByUserName("user");
+
+     @RequestMapping(value="/dsfe",method = RequestMethod.POST)
+    public Object dsfe(@RequestBody Pay pay){
+        User user = getUserByUserName(pay.getUserName());
         Map map = new HashMap<>();
         map.put("state",0);
         map.put("msg", "success");
         map.put("data",user);
         return map;
     }
-
-    @RequestMapping("/test")
-    public Object test(String s){
-        Object obj = cacheable(s);
+    @ApiOperation(value = "cacheable redis缓存", notes = "缓存雪崩")
+    @RequestMapping(value = "/test",method= RequestMethod.POST)
+    public Object test(@RequestBody DUser user){
+         String name = user.getName();
+        Object obj = cacheable(name);
         Map map = new HashMap<>();
         map.put("state",0);
         map.put("msg", "success");
         map.put("data",obj);
         return map;
     }
-    @RequestMapping("/evict")
-    public Object cacheEvict(String s){
+    @RequestMapping(value = "/evict",method = RequestMethod.POST)
+    public Object cacheEvict1(String s){
         Object obj = CacheEvict(s);
         Map map = new HashMap<>();
         map.put("state",0);

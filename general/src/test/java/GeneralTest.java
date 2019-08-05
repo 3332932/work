@@ -13,17 +13,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class GeneralTest {
 	@Autowired
 	private GeneralMain generalMain;
-	
-	
+
+
 	@Test
 	public void allTable() throws Exception {
 		generalMain.start();
 	}
-	
+
 	@Test
 	public void diyTable() throws Exception {
-		generalMain.general("user");
+		generalMain.general("bms_express_register");
 	}
-	
-	
+
+
 }
