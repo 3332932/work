@@ -9,7 +9,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class SpringbootApiApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(SpringbootApiApplication.class, args);
 	}
 
